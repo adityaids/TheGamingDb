@@ -5,6 +5,23 @@ buildscript {
 
         //database
         ext.room_version = "2.4.0-alpha03"
+
+        //koin
+        ext.koin_version = "2.2.3"
+
+        //http request
+        ext.retrofit_version = "2.9.0"
+        ext.logging_interceptor_version = "4.9.0"
+
+        //lottie version
+        ext.lottie_version = "5.2.0"
+
+        //koin
+        ext.koin_version = "3.2.0"
+    }
+
+    repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
