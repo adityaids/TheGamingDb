@@ -6,13 +6,21 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.aditya.thegamingdb.presenter.app.TheGamingApp
+import com.aditya.thegamingdb.ui.screen.SplashScreen
 import com.aditya.thegamingdb.ui.theme.TheGamingDbTheme
+import com.aditya.thegamingdb.ui.theme.background_color
+import com.aditya.thegamingdb.util.Screen
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -20,9 +28,10 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = background_color
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    SetupNavGraph(navController = navController)
                 }
             }
         }
@@ -30,14 +39,24 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun SetupNavGraph(navController: NavHostController) {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.SplashScreen.route
+    ) {
+        composable(route = Screen.SplashScreen.route) {
+            SplashScreen(navController = navController)
+        }
+        composable(route = Screen.TheGamingApp.route) {
+            TheGamingApp()
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun TheGamingAppPreview(){
     TheGamingDbTheme {
-        Greeting("Android")
+        TheGamingApp()
     }
 }

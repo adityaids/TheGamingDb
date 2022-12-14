@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">TheGamingDb</string>
     <string name="title_app">The Gaming Library</string>
-    <string name="description_app">Find your favorit Game information with ease</string>
+    <string name="description_app">Find your favorit Game information with ease, explore hot, updated, and new released game in your hand</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_favorite">Favorit</string>
+    <string name="menu_profile">Profile</string>
+    <string name="search_game">Cari Judul Game</string>
 </resources>
