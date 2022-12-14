@@ -2,7 +2,6 @@ package com.aditya.thegamingdb.domain.mapper
 
 import com.aditya.thegamingdb.data.source.remote.dto.GameDetailResponseDTO
 import com.aditya.thegamingdb.domain.dto.GameDetailResponse
-import com.aditya.thegamingdb.domain.dto.GameResponse
 
 class GameDetailResponseToDomain {
     fun map(data: GameDetailResponseDTO) =

@@ -28,7 +28,6 @@ import com.aditya.thegamingdb.ui.screen.FavoriteScreen
 import com.aditya.thegamingdb.ui.screen.HomeScreen
 import com.aditya.thegamingdb.ui.screen.LoadingScreen
 import com.aditya.thegamingdb.ui.screen.ProfileScreen
-import com.aditya.thegamingdb.ui.screen.SplashScreen
 import com.aditya.thegamingdb.ui.theme.TheGamingDbTheme
 import com.aditya.thegamingdb.util.Screen
 
