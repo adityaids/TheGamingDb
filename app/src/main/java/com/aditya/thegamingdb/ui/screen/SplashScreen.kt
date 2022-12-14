@@ -68,7 +68,11 @@ fun Loader(
 
         )
     if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
-        navController.navigate(Screen.TheGamingApp.route)
+        navController.navigate(Screen.TheGamingApp.route) {
+            popUpTo(Screen.SplashScreen.route) {
+                inclusive = true
+            }
+        }
     }
 }
 
