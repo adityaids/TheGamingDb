@@ -2,6 +2,6 @@
 <resources>
 
     <style name="Theme.TheGamingDb" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:statusBarColor">@color/appbar_color</item>
     </style>
 </resources>

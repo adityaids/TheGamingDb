@@ -1,10 +1,10 @@
 package com.aditya.thegamingdb.ui.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -38,26 +38,22 @@ fun SplashScreen(
     ) {
         Column(
             modifier = Modifier
-                .weight(1f)
+                .fillMaxWidth()
+                .height(640.dp)
         ) {
-            Loader(navController = navController)
+            LoadingAnimation(navController = navController)
         }
-        Box(
-            modifier = modifier
-                .padding(vertical = 100.dp, horizontal = 16.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.description_app),
-                color = white,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-            )
-        }
+        Text(
+            text = stringResource(id = R.string.description_app),
+            color = white,
+            textAlign = TextAlign.Center,
+            maxLines = 3,
+        )
     }
 }
 
 @Composable
-fun Loader(
+fun LoadingAnimation(
     navController : NavHostController
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.gaming_animation))

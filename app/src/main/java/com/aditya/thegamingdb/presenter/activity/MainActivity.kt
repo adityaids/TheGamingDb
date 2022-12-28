@@ -13,6 +13,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.aditya.thegamingdb.presenter.app.TheGamingApp
+import com.aditya.thegamingdb.ui.screen.FavoriteScreen
+import com.aditya.thegamingdb.ui.screen.ProfileScreen
 import com.aditya.thegamingdb.ui.screen.SplashScreen
 import com.aditya.thegamingdb.ui.theme.TheGamingDbTheme
 import com.aditya.thegamingdb.ui.theme.background_color
@@ -26,8 +28,8 @@ class MainActivity : ComponentActivity() {
             TheGamingDbTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = background_color
+                    modifier = Modifier
+                        .fillMaxSize(),
                 ) {
                     val navController = rememberNavController()
                     SetupNavGraph(navController = navController)
@@ -48,6 +50,15 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.TheGamingApp.route) {
             TheGamingApp()
+        }
+        composable(Screen.Home.route) {
+            com.aditya.thegamingdb.ui.screen.HomeScreen()
+        }
+        composable(Screen.Favorite.route) {
+            FavoriteScreen()
+        }
+        composable(Screen.Profile.route) {
+            ProfileScreen()
         }
     }
 }
