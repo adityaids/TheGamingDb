@@ -74,7 +74,7 @@ class GameRepositoryImpl(
                     emit(Result.Success(data))
                 }
                 is ApiResponse.Empty -> emit(Result.Success(GameResponse()))
-                is ApiResponse.Error -> emit(Result.Error<GameResponse>(apiResponse.errorMessage))
+                is ApiResponse.Error -> emit(Result.Error(apiResponse.errorMessage))
             }
         } as Flow<Result<GameResponse>>
 

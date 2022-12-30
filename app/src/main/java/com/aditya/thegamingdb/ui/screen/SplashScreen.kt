@@ -20,7 +20,7 @@ import com.aditya.thegamingdb.R
 import com.aditya.thegamingdb.ui.theme.TheGamingDbTheme
 import com.aditya.thegamingdb.ui.theme.background_color
 import com.aditya.thegamingdb.ui.theme.white
-import com.aditya.thegamingdb.util.Screen
+import com.aditya.thegamingdb.ui.navigation.Screen
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState

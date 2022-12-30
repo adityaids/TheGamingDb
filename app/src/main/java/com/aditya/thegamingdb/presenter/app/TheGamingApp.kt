@@ -1,8 +1,6 @@
 package com.aditya.thegamingdb.presenter.app
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -20,17 +18,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.aditya.thegamingdb.R
+import com.aditya.thegamingdb.presenter.viewmodel.MainViewModel
 import com.aditya.thegamingdb.ui.navigation.NavigationItem
+import com.aditya.thegamingdb.ui.screen.FavoriteScreen
+import com.aditya.thegamingdb.ui.screen.HomeScreen
+import com.aditya.thegamingdb.ui.screen.ProfileScreen
 import com.aditya.thegamingdb.ui.theme.TheGamingDbTheme
-import com.aditya.thegamingdb.util.Screen
+import com.aditya.thegamingdb.ui.navigation.Screen
 
 @Composable
 fun TheGamingApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    mainViewModel : MainViewModel
 ) {
     Scaffold(
         bottomBar = {
@@ -44,6 +48,15 @@ fun TheGamingApp(
             modifier = Modifier.padding(innerPadding)
         ) {
 
+            composable(Screen.Home.route) {
+                HomeScreen(mainViewModel = mainViewModel)
+            }
+            composable(Screen.Favorite.route) {
+                FavoriteScreen(mainViewModel = mainViewModel)
+            }
+            composable(Screen.Profile.route) {
+                ProfileScreen()
+            }
         }
     }
 }
@@ -105,6 +118,6 @@ private fun BottomBar(
 @Composable
 fun TheGamingAppPreview() {
     TheGamingDbTheme {
-        TheGamingApp()
+
     }
 }

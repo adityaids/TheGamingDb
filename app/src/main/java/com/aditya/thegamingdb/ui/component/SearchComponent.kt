@@ -21,13 +21,16 @@ import com.aditya.thegamingdb.R
 
 @Composable
 fun SearchComponent(
-    modifier: Modifier = Modifier,
+    query: String,
+    onQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     TextField(
-        value = "",
-        onValueChange = {},
+        value = query,
+        onValueChange = onQueryChange,
         leadingIcon = {
-            Icon(imageVector = Icons.Default.Search,
+            Icon(
+                imageVector = Icons.Default.Search,
                 contentDescription = null
             )
         },
@@ -38,9 +41,9 @@ fun SearchComponent(
             unfocusedIndicatorColor = Color.Transparent,
         ),
         placeholder = {
-            Text(text = stringResource(id = R.string.search_game))
+            Text(stringResource(R.string.search_game))
         },
-        modifier = Modifier
+        modifier = modifier
             .padding(16.dp)
             .fillMaxWidth()
             .heightIn(min = 48.dp)

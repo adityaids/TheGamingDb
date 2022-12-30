@@ -13,14 +13,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.aditya.thegamingdb.presenter.app.TheGamingApp
-import com.aditya.thegamingdb.ui.screen.FavoriteScreen
-import com.aditya.thegamingdb.ui.screen.ProfileScreen
+import com.aditya.thegamingdb.presenter.viewmodel.MainViewModel
 import com.aditya.thegamingdb.ui.screen.SplashScreen
 import com.aditya.thegamingdb.ui.theme.TheGamingDbTheme
-import com.aditya.thegamingdb.ui.theme.background_color
-import com.aditya.thegamingdb.util.Screen
+import com.aditya.thegamingdb.ui.navigation.Screen
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
+
+    private val mainViewModel: MainViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,10 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                 ) {
                     val navController = rememberNavController()
-                    SetupNavGraph(navController = navController)
+                    SetupNavGraph(
+                        navController = navController,
+                        mainViewModel = mainViewModel
+                    )
                 }
             }
         }
@@ -40,25 +44,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun SetupNavGraph(
+    navController: NavHostController,
+    mainViewModel: MainViewModel
+) {
     NavHost(
         navController = navController,
-        startDestination = Screen.SplashScreen.route
+        startDestination = Screen.SplashScreen.route,
     ) {
         composable(route = Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
         composable(route = Screen.TheGamingApp.route) {
-            TheGamingApp()
-        }
-        composable(Screen.Home.route) {
-            com.aditya.thegamingdb.ui.screen.HomeScreen()
-        }
-        composable(Screen.Favorite.route) {
-            FavoriteScreen()
-        }
-        composable(Screen.Profile.route) {
-            ProfileScreen()
+            TheGamingApp(mainViewModel = mainViewModel)
         }
     }
 }
@@ -67,6 +65,6 @@ fun SetupNavGraph(navController: NavHostController) {
 @Composable
 fun TheGamingAppPreview(){
     TheGamingDbTheme {
-        TheGamingApp()
+
     }
 }

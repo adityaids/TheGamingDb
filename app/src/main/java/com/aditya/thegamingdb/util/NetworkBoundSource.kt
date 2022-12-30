@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.map
 
 abstract class NetworkBoundSource<ResultType, RequestType> {
     private var result: Flow<Result<ResultType>> = flow {
-        emit(Result.Loading())
+        emit(Result.Loading)
         val dbSource = loadFromDB().first()
         if (shouldFetch(dbSource)) {
-            emit(Result.Loading())
+            emit(Result.Loading)
             when (val apiResponse = createCall().first()) {
                 is ApiResponse.Success -> {
                     saveCallResult(apiResponse.data)
@@ -22,7 +22,7 @@ abstract class NetworkBoundSource<ResultType, RequestType> {
                 }
                 is ApiResponse.Error -> {
                     onFetchFailed()
-                    emit(Result.Error<ResultType>(apiResponse.errorMessage))
+                    emit(Result.Error(apiResponse.errorMessage))
                 }
             }
         } else {
