@@ -64,7 +64,7 @@ fun ProfileScreen(
                     .padding(4.dp),
             )
             Text(
-                text = "Belajar terus walaupun sedikit demi sedikit",
+                text = "aditya.purnamaaa@gmail.com",
                 textAlign = TextAlign.Center,
                 maxLines = 2,
                 color = white,
