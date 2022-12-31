@@ -13,4 +13,5 @@ class GameDbDataImpl(
     override suspend fun updateFavorit(game: GameEntity) = gameDao.updateGame(game)
     override fun getSearchGameResult(name: String) = gameDao.getSearchGameResult(name)
     override suspend fun insertGame(gameList: List<GameEntity>) = gameDao.insertGame(gameList)
+    override suspend fun addGame(game: GameEntity) = gameDao.insertGame(game)
 }

@@ -1,6 +1,7 @@
 package com.aditya.thegamingdb.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,7 @@ import com.aditya.thegamingdb.R
 import com.aditya.thegamingdb.domain.dto.GameResponse
 import com.aditya.thegamingdb.presenter.viewmodel.MainViewModel
 import com.aditya.thegamingdb.ui.component.ErrorComponent
+import com.aditya.thegamingdb.ui.component.ListContentSection
 import com.aditya.thegamingdb.ui.component.NewCardGamesComponent
 import com.aditya.thegamingdb.ui.component.PopularCardGamesComponent
 import com.aditya.thegamingdb.ui.component.SearchComponent
@@ -28,6 +30,7 @@ import com.aditya.thegamingdb.util.Result
 
 @Composable
 fun HomeScreen(
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel
 ) {
@@ -42,7 +45,9 @@ fun HomeScreen(
                 HomeContent(
                     popularGameList = result.data,
                     latestGameList = result.data.sortedBy { it.isLatest },
-                    mainViewModel = mainViewModel)
+                    mainViewModel = mainViewModel,
+                    navigateToDetail = navigateToDetail
+                )
             }
             is Result.Error -> {
                 ErrorComponent()
@@ -55,6 +60,7 @@ fun HomeScreen(
 fun HomeContent(
     popularGameList: List<GameResponse>,
     latestGameList: List<GameResponse>,
+    navigateToDetail: (Int) -> Unit,
     mainViewModel: MainViewModel,
     modifier: Modifier = Modifier,
 ) {
@@ -72,8 +78,13 @@ fun HomeContent(
         if (query.isEmpty()){
             PopularGameContent(
                 popularGameList = popularGameList,
-                mainViewModel = mainViewModel)
-            LatestGameContent(latestGameList = latestGameList)
+                mainViewModel = mainViewModel,
+                navigateToDetail = navigateToDetail
+            )
+            LatestGameContent(
+                latestGameList = latestGameList,
+                navigateToDetail = navigateToDetail
+            )
         } else {
             mainViewModel.searchGameList
                 .collectAsState(initial = Result.Loading)
@@ -83,7 +94,10 @@ fun HomeContent(
                             mainViewModel.search(query)
                         }
                         is Result.Success -> {
-                            SearchGameContent(result.data)
+                            SearchGameContent(
+                                result.data,
+                                navigateToDetail = navigateToDetail
+                            )
                         }
                         is Result.Error -> {
                             ErrorComponent()
@@ -97,17 +111,20 @@ fun HomeContent(
 @Composable
 fun PopularGameContent(
     popularGameList: List<GameResponse>,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel
 ) {
     Column(
         modifier = Modifier,
     ) {
-        HomeSection(
+        ListContentSection(
             title = stringResource(id = R.string.popular_games),
-            content = { PopularCardGamesComponent(
-                gameList = popularGameList,
-                mainViewModel = mainViewModel
+            content = {
+                PopularCardGamesComponent(
+                    gameList = popularGameList,
+                    mainViewModel = mainViewModel,
+                    navigateToDetail = navigateToDetail
             )}
         )
     }
@@ -116,14 +133,18 @@ fun PopularGameContent(
 @Composable
 fun LatestGameContent(
     latestGameList: List<GameResponse>,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = Modifier,
     ) {
-        HomeSection(
+        ListContentSection(
             title = stringResource(id = R.string.lates_games),
-            content = { NewCardGamesComponent(gameList = latestGameList) }
+            content = { NewCardGamesComponent(
+                gameList = latestGameList,
+                navigateToDetail = navigateToDetail
+            ) }
         )
     }
 }
@@ -131,43 +152,22 @@ fun LatestGameContent(
 @Composable
 fun SearchGameContent(
     gameList: List<GameResponse>,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = Modifier,
     ) {
-        HomeSection(
+        ListContentSection(
             title = stringResource(id = R.string.search_result),
-            content = { NewCardGamesComponent(gameList = gameList) }
+            content = {
+                NewCardGamesComponent(
+                    gameList = gameList,
+                    navigateToDetail = navigateToDetail
+                )
+            }
         )
     }
-}
-
-@Composable
-fun HomeSection(
-    title: String,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
-) {
-    Column(modifier = modifier) {
-        SectionText(title = title, modifier)
-        content()
-    }
-}
-
-@Composable
-fun SectionText(
-    title : String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        color = white,
-        style = MaterialTheme.typography.h5.copy(
-            fontWeight = FontWeight.ExtraBold
-        ),
-        modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-    )
 }
 
 @Preview(showBackground = true)

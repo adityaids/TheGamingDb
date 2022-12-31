@@ -24,7 +24,7 @@ class GameUsecaseImpl(
     override suspend fun updateFavorit(game: GameResponse) =
         repository.updateFavorit(game)
 
-    override fun getFavoritList(): Flow<List<GameResponse>> =
+    override fun getFavoritList(): Flow<Result<List<GameResponse>>> =
         repository.getFavoritList()
 
     override fun getSearchGameResult(title: String): Flow<Result<List<GameResponse>>> =

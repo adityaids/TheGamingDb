@@ -10,6 +10,8 @@
     <string name="search_game">Cari Judul Game</string>
     <string name="popular_games">Game Populer</string>
     <string name="lates_games">Game Terbaru</string>
+    <string name="favorite_games">Game Favorite</string>
     <string name="error_load">Terjadi Kesalahan, Muat Ulang ?</string>
     <string name="search_result">Hasil Pencarian</string>
+    <string name="button_text">Tambah ke Favorit</string>
 </resources>

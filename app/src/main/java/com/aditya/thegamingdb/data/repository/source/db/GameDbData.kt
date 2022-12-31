@@ -10,4 +10,5 @@ interface GameDbData {
     suspend fun updateFavorit(game: GameEntity)
     fun getSearchGameResult(name: String): Flow<List<GameEntity>>
     suspend fun insertGame(gameList: List<GameEntity>)
+    suspend fun addGame(game: GameEntity)
 }

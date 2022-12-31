@@ -1,5 +1,6 @@
 package com.aditya.thegamingdb.presenter.app
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -17,10 +18,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.aditya.thegamingdb.R
 import com.aditya.thegamingdb.presenter.viewmodel.MainViewModel
 import com.aditya.thegamingdb.ui.navigation.NavigationItem
@@ -29,6 +32,7 @@ import com.aditya.thegamingdb.ui.screen.HomeScreen
 import com.aditya.thegamingdb.ui.screen.ProfileScreen
 import com.aditya.thegamingdb.ui.theme.TheGamingDbTheme
 import com.aditya.thegamingdb.ui.navigation.Screen
+import com.aditya.thegamingdb.ui.screen.DetailScreen
 
 @Composable
 fun TheGamingApp(
@@ -49,13 +53,40 @@ fun TheGamingApp(
         ) {
 
             composable(Screen.Home.route) {
-                HomeScreen(mainViewModel = mainViewModel)
+                HomeScreen(
+                    mainViewModel = mainViewModel,
+                    navigateToDetail = { id ->
+                        navController.navigate(Screen.Detail.createRoute(
+                            id
+                        ))
+                    }
+                )
             }
             composable(Screen.Favorite.route) {
-                FavoriteScreen(mainViewModel = mainViewModel)
+                FavoriteScreen(
+                    mainViewModel = mainViewModel,
+                    navigateToDetail = { id ->
+                        navController.navigate(Screen.Detail.createRoute(
+                            id
+                        ))
+                    }
+                )
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
+            }
+            composable(
+                route = Screen.Detail.route,
+                arguments = listOf(navArgument("gameId") { type = NavType.IntType }),
+            ) {
+                val id = it.arguments?.getInt("gameId") ?: -1
+                DetailScreen(
+                    id = id,
+                    navigateBack = {
+                        navController.navigateUp()
+                    },
+                    mainViewModel = mainViewModel
+                )
             }
         }
     }

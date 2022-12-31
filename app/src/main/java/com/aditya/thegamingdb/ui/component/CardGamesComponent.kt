@@ -1,6 +1,7 @@
 package com.aditya.thegamingdb.ui.component
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,6 +25,7 @@ import com.aditya.thegamingdb.ui.theme.TheGamingDbTheme
 @Composable
 fun PopularCardGamesComponent(
     gameList: List<GameResponse>,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel
 ) {
@@ -33,12 +35,15 @@ fun PopularCardGamesComponent(
         LazyRow(
             contentPadding = PaddingValues(8.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = modifier.testTag("RewardList")
+            modifier = modifier.testTag("PopularList")
         ) {
             items(gameList, key = { it.id }) { data ->
                 BiggerCardGameComponent(
                     gameResponse = data,
-                    mainViewModel = mainViewModel
+                    mainViewModel = mainViewModel,
+                    modifier = Modifier.clickable {
+                        navigateToDetail(data.id)
+                    }
                 )
             }
         }
@@ -48,6 +53,7 @@ fun PopularCardGamesComponent(
 @Composable
 fun NewCardGamesComponent(
     gameList: List<GameResponse>,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -59,35 +65,42 @@ fun NewCardGamesComponent(
             contentPadding = PaddingValues(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = modifier.testTag("RewardList")
+            modifier = modifier.testTag("NewList")
         ) {
             items(gameList, key = { it.id }) { data ->
-                CardGameComponent(gameResponse = data)
+                CardGameComponent(
+                    gameResponse = data,
+                    modifier = Modifier.clickable {
+                        navigateToDetail(data.id)
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-fun SearchResultGamesComponent(
+fun FavoriteGamesComponent(
     gameList: List<GameResponse>,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
     ) {
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(160.dp),
-            contentPadding = PaddingValues(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        LazyColumn(
+            contentPadding = PaddingValues(8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = modifier.testTag("RewardList")
+            modifier = modifier.testTag("FavoriteList")
         ) {
             items(gameList, key = { it.id }) { data ->
                 BiggerCardGameComponent(
                     gameResponse = data,
-                    mainViewModel = mainViewModel
+                    mainViewModel = mainViewModel,
+                    modifier = Modifier.clickable {
+                        navigateToDetail(data.id)
+                    }
                 )
             }
         }

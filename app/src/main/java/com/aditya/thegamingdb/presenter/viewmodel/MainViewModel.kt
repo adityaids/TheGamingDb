@@ -39,18 +39,18 @@ class MainViewModel(
         }
     }
 
-    private val _latestGameList: MutableStateFlow<Result<List<GameResponse>>> = MutableStateFlow(Result.Loading)
-    val latestGameList: StateFlow<Result<List<GameResponse>>>
-        get() = _latestGameList
+    private val _favoriteGameList: MutableStateFlow<Result<List<GameResponse>>> = MutableStateFlow(Result.Loading)
+    val favoriteGameList: StateFlow<Result<List<GameResponse>>>
+        get() = _favoriteGameList
 
-    fun getLatestGameList() {
+    fun getFavoriteGameList() {
         viewModelScope.launch {
-            gameUsecase.getLatestGame()
+            gameUsecase.getFavoritList()
                 .catch {
-                    _latestGameList.value = Result.Error(it.message.toString())
+                    _favoriteGameList.value = Result.Error(it.message.toString())
                 }
                 .collect { gameList ->
-                    _latestGameList.value = gameList
+                    _favoriteGameList.value = gameList
                 }
         }
     }

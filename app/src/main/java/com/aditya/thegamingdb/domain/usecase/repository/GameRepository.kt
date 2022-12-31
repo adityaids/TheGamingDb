@@ -10,6 +10,6 @@ interface GameRepository {
     fun getDetail(id: Int): Flow<Result<GameResponse>>
     suspend fun setFavorit(game: GameResponse)
     suspend fun updateFavorit(game: GameResponse)
-    fun getFavoritList(): Flow<List<GameResponse>>
+    fun getFavoritList(): Flow<Result<List<GameResponse>>>
     fun getSearchGameResult(title: String): Flow<Result<List<GameResponse>>>
 }

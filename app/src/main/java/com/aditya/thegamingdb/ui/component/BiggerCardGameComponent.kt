@@ -47,7 +47,7 @@ fun BiggerCardGameComponent(
 ) {
     var favoritState by remember { mutableStateOf(gameResponse.isFavorite) }
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(primary)
             .size(height = 160.dp, width = 240.dp),
     ) {

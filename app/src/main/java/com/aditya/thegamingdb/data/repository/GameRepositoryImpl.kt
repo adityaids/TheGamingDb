@@ -76,12 +76,12 @@ class GameRepositoryImpl(
                 is ApiResponse.Empty -> emit(Result.Success(GameResponse()))
                 is ApiResponse.Error -> emit(Result.Error(apiResponse.errorMessage))
             }
-        } as Flow<Result<GameResponse>>
+        }
 
     override suspend fun setFavorit(game: GameResponse) {
         val gameEntity = gameReqToEntity.map(game)
         withContext(Dispatchers.IO){
-            gameLocalData.updateFavorit(gameEntity)
+            gameLocalData.addGame(gameEntity)
         }
     }
 
@@ -92,8 +92,8 @@ class GameRepositoryImpl(
         }
     }
 
-    override fun getFavoritList(): Flow<List<GameResponse>> {
-        return gameLocalData.getAllFavorit().map { entityToDomainMapper.map(it) }
+    override fun getFavoritList(): Flow<Result<List<GameResponse>>> {
+        return gameLocalData.getAllFavorit().map { Result.Success(entityToDomainMapper.map(it)) }
     }
 
     override fun getSearchGameResult(title: String): Flow<Result<List<GameResponse>>> =

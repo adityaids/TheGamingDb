@@ -32,7 +32,7 @@ fun CardGameComponent(
     gameResponse: GameResponse
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .size(height = 200.dp, width = 140.dp)
             .background(primary)
     ) {
